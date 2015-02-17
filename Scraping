@@ -1,0 +1,17 @@
+with open("Names_Seminar.txt", "a") as myfile:
+    for i in range(1,801): 
+        file = str(i) + ".html"
+        Web_page = BeautifulSoup(open(file)) 
+        Track_div = Web_page.find(id="main-content")
+        Track_id = Track_div.find("div", class_="clear-fix right-wide-column")
+        Track_class = Track_id.strong
+        if Track_class == "EcoEvoPub Series":
+            pattern_A = r"<p>([A-Za-z]* [A-Za-z]* ?[A-Za-z]?)<br/>" 
+            regex = re.search(pattern_A, str(Track_id), re.I)
+            name = regex.group(1)
+            pattern_B = r"<h4>(.* .* .*) </h4>"
+            regex_2 = re.search(pattern_B, str(Track_id), re.I)
+            date = regex_2.group(1)
+            ALL_names_dates.write(str(name + ", " + date + "\n"))
+        #else: 
+            #break
